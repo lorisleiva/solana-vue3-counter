@@ -1,5 +1,5 @@
 import { ref, computed, watch, watchEffect } from 'vue'
-import useLocalStorage from './useLocalStorage'
+import { useLocalStorage } from '@solana/wallet-adapter-vue'
 
 let walletStore = {}
 
