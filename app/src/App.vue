@@ -14,7 +14,7 @@
 <script>
 import { ref } from 'vue'
 import { getPhantomWallet } from '@solana/wallet-adapter-wallets'
-import { initWallet, useWallet } from './useWallet'
+import { initWallet, useWallet } from '@solana/wallet-adapter-vue'
 import { initWorkspace } from './useWorkspace'
 import createCounter from './api/createCounter'
 import fetchAccount from './api/fetchAccount'
@@ -25,7 +25,7 @@ const wallets = [getPhantomWallet()]
 export default {
     name: 'App',
     setup () {
-        initWallet(wallets, true)
+        initWallet({ wallets, autoConnect: true })
         initWorkspace()
         const { wallet, walletProvider, connect, disconnect, connected } = useWallet()
         const counter = ref(null)
