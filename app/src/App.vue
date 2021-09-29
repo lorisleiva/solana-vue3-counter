@@ -8,6 +8,7 @@
         <button @click="create">Create counter</button>
         <button @click="increment">Increment counter</button>
         <h1>Counter: {{ counter ?? 'NOT SET' }}</h1>
+        <button @click="$forceUpdate()">Refresh</button>
     </div>
 </template>
 
