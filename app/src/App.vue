@@ -1,8 +1,8 @@
 <template>
     <div>
         <pre>{{ wallet }}</pre>
-        <input type="text" v-model="walletProvider">
-        {{ walletProvider }}
+        <input type="text" v-model="walletName">
+        {{ walletName }}
         <button v-if="connected" @click="disconnect">Disconnect</button>
         <button v-else @click="connect">Connect</button>
         <button @click="create">Create counter</button>
@@ -28,7 +28,7 @@ export default {
     setup () {
         initWallet({ wallets, autoConnect: true })
         initWorkspace()
-        const { wallet, walletProvider, connect, disconnect, connected } = useWallet()
+        const { wallet, walletName, connect, disconnect, connected } = useWallet()
         const counter = ref(null)
 
         const fetchCounter = async () => {
@@ -47,7 +47,7 @@ export default {
         }
 
         return {
-            walletProvider,
+            walletName,
             wallet,
             connect,
             disconnect,
