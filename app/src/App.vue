@@ -1,6 +1,8 @@
 <template>
     <div>
         <pre>{{ wallet }}</pre>
+        <wallet-connect-button></wallet-connect-button>
+        
         <input type="text" v-model="walletName">
         {{ walletName }}
         <button v-if="connected" @click="disconnect">Disconnect</button>
@@ -19,11 +21,15 @@ import { initWorkspace } from './useWorkspace'
 import createCounter from './api/createCounter'
 import fetchAccount from './api/fetchAccount'
 import incrementCounter from './api/incrementCounter'
+import WalletConnectButton from './vue-ui/WalletConnectButton'
 
 const wallets = [getPhantomWallet()]
 
 export default {
     name: 'App',
+    components: {
+        WalletConnectButton,
+    },
     setup () {
         initWallet({ wallets, autoConnect: true })
         initWorkspace()
