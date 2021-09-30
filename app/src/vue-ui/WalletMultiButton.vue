@@ -1,12 +1,14 @@
 <script setup>
 import { ref, computed, watchEffect } from 'vue'
 import { useWallet } from '../vue-adapter';
+import { useWalletModal } from './useWalletModal';
 import WalletConnectButton from './WalletConnectButton';
+import WalletModalButton from './WalletModalButton';
 import WalletButton from './WalletButton';
 import WalletIcon from './WalletIcon';
 
 const { publicKey, wallet, disconnect } = useWallet();
-const visible = ref(false);
+const { showModal } = useWalletModal();
 const copied = ref(false);
 const active = ref(false);
 const dropdown = ref(null);
@@ -27,7 +29,7 @@ const copyAddress = async () => {
 const openDropdown = () => active.value = true;
 const closeDropdown = () => active.value = false;
 const openModal = () => {
-    visible.value = true;
+    showModal();
     closeDropdown();
 };
 
@@ -48,7 +50,9 @@ watchEffect(onInvalidate => {
 </script>
 
 <template>
-    <div v-if="! wallet">Wallet modal button (TODO)</div>
+    <wallet-modal-button v-if="! wallet">
+        <slot></slot>
+    </wallet-modal-button>
     <wallet-connect-button v-else-if="! base58">
         <slot></slot>
     </wallet-connect-button>

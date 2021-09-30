@@ -1,15 +1,7 @@
 <template>
     <div>
-        <pre>{{ wallet }}</pre>
-        <wallet-connect-button></wallet-connect-button>
-        <wallet-disconnect-button></wallet-disconnect-button>
         <wallet-multi-button></wallet-multi-button>
         <wallet-modal></wallet-modal>
-
-        <input type="text" v-model="walletName">
-        {{ walletName }}
-        <button v-if="connected" @click="disconnect">Disconnect</button>
-        <button v-else @click="connect">Connect</button>
         <button @click="create">Create counter</button>
         <button @click="increment">Increment counter</button>
         <h1>Counter: {{ counter ?? 'NOT SET' }}</h1>
@@ -24,8 +16,6 @@ import { initWorkspace } from './useWorkspace'
 import createCounter from './api/createCounter'
 import fetchAccount from './api/fetchAccount'
 import incrementCounter from './api/incrementCounter'
-import WalletConnectButton from './vue-ui/WalletConnectButton'
-import WalletDisconnectButton from './vue-ui/WalletDisconnectButton'
 import WalletMultiButton from './vue-ui/WalletMultiButton'
 import WalletModal from './vue-ui/WalletModal'
 
@@ -34,8 +24,6 @@ const wallets = [getPhantomWallet()]
 export default {
     name: 'App',
     components: {
-        WalletConnectButton,
-        WalletDisconnectButton,
         WalletMultiButton,
         WalletModal,
     },

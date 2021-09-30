@@ -1,6 +1,7 @@
 <script setup>
 import { computed, ref, toRefs, watchPostEffect } from 'vue';
 import { useWallet } from '../vue-adapter';
+import { useWalletModal } from './useWalletModal';
 import WalletButton from './WalletButton';
 import WalletListItem from './WalletListItem';
 
@@ -12,14 +13,12 @@ const props = defineProps({
 
 const { featuredWallets: featuredWalletsNumber, container, logo } = toRefs(props);
 const { wallets, select } = useWallet();
+const { visible, hideModal } = useWalletModal();
 const modal = ref(null);
-const visible = ref(false);
 const expanded = ref(false);
 const featuredWallets = computed(() => wallets.slice(0, featuredWalletsNumber.value));
 const otherWallets = computed(() => wallets.slice(featuredWalletsNumber.value));
 
-const showModal = () => visible.value = true;
-const hideModal = () => visible.value = false;
 const selectWallet = walletName => {
     select(walletName);
     hideModal();
@@ -74,69 +73,64 @@ watchPostEffect(onInvalidate => {
 </script>
 
 <template>
-    <div>
-        <wallet-button class="wallet-adapter-button-trigger" @click="showModal">
-            <slot>Select Wallet</slot>
-        </wallet-button>
-        <teleport :to="container" v-if="visible">
-            <div
-                aria-labelledby="wallet-adapter-modal-title"
-                aria-modal="true"
-                class="wallet-adapter-modal wallet-adapter-modal-fade-in"
-                ref="modal"
-                role="dialog"
-            >
-                <div class="wallet-adapter-modal-container">
-                    <div class="wallet-adapter-modal-wrapper" :class="{ 'wallet-adapter-modal-wrapper-no-logo': ! $slots.logo }">
-                        <div class="wallet-adapter-modal-logo-wrapper" v-if="$slots.logo">
-                            <slot name="logo">
-                                <img alt="logo" class="wallet-adapter-modal-logo" :src="logo" />
-                            </slot>
-                        </div>
-                        <h1 class="wallet-adapter-modal-title" id="wallet-adapter-modal-title">
-                            Connect Wallet
-                        </h1>
-                        <button @click.prevent="hideModal" class="wallet-adapter-modal-button-close">
-                            <svg width="14" height="14">
-                                <path d="M14 12.461 8.3 6.772l5.234-5.233L12.006 0 6.772 5.234 1.54 0 0 1.539l5.234 5.233L0 12.006l1.539 1.528L6.772 8.3l5.69 5.7L14 12.461z" />
-                            </svg>
-                        </button>
+    <teleport :to="container" v-if="visible">
+        <div
+            aria-labelledby="wallet-adapter-modal-title"
+            aria-modal="true"
+            class="wallet-adapter-modal wallet-adapter-modal-fade-in"
+            ref="modal"
+            role="dialog"
+        >
+            <div class="wallet-adapter-modal-container">
+                <div class="wallet-adapter-modal-wrapper" :class="{ 'wallet-adapter-modal-wrapper-no-logo': ! $slots.logo }">
+                    <div class="wallet-adapter-modal-logo-wrapper" v-if="$slots.logo">
+                        <slot name="logo">
+                            <img alt="logo" class="wallet-adapter-modal-logo" :src="logo" />
+                        </slot>
+                    </div>
+                    <h1 class="wallet-adapter-modal-title" id="wallet-adapter-modal-title">
+                        Connect Wallet
+                    </h1>
+                    <button @click.prevent="hideModal" class="wallet-adapter-modal-button-close">
+                        <svg width="14" height="14">
+                            <path d="M14 12.461 8.3 6.772l5.234-5.233L12.006 0 6.772 5.234 1.54 0 0 1.539l5.234 5.233L0 12.006l1.539 1.528L6.772 8.3l5.69 5.7L14 12.461z" />
+                        </svg>
+                    </button>
+                    <ul class="wallet-adapter-modal-list">
+                        <wallet-list-item
+                            v-for="wallet in featuredWallets"
+                            :key="wallet.name"
+                            :wallet="wallet"
+                            @click="selectWallet(wallet.name)"
+                        ></wallet-list-item>
+                    </ul>
+                    <template v-if="otherWallets.length > 0">
                         <ul class="wallet-adapter-modal-list">
                             <wallet-list-item
-                                v-for="wallet in featuredWallets"
+                                v-for="wallet in otherWallets"
                                 :key="wallet.name"
                                 :wallet="wallet"
                                 @click="selectWallet(wallet.name)"
                             ></wallet-list-item>
                         </ul>
-                        <template v-if="otherWallets.length > 0">
-                            <ul class="wallet-adapter-modal-list">
-                                <wallet-list-item
-                                    v-for="wallet in otherWallets"
-                                    :key="wallet.name"
-                                    :wallet="wallet"
-                                    @click="selectWallet(wallet.name)"
-                                ></wallet-list-item>
-                            </ul>
-                            <wallet-button
-                                aria-controls="wallet-adapter-modal-collapse"
-                                :aria-expanded="expanded"
-                                class="wallet-adapter-modal-collapse-button"
-                                :class="{ 'wallet-adapter-modal-collapse-button-active': expanded }"
-                                @click="expanded = ! expanded"
-                            >
-                                {{ expanded ? 'Less' : 'More' }} options
-                                <template #end-icon>
-                                    <svg width="11" height="6" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="m5.938 5.73 4.28-4.126a.915.915 0 0 0 0-1.322 1 1 0 0 0-1.371 0L5.253 3.736 1.659.272a1 1 0 0 0-1.371 0A.93.93 0 0 0 0 .932c0 .246.1.48.288.662l4.28 4.125a.99.99 0 0 0 1.37.01z" />
-                                    </svg>
-                                </template>
-                            </wallet-button>
-                        </template>
-                    </div>
+                        <wallet-button
+                            aria-controls="wallet-adapter-modal-collapse"
+                            :aria-expanded="expanded"
+                            class="wallet-adapter-modal-collapse-button"
+                            :class="{ 'wallet-adapter-modal-collapse-button-active': expanded }"
+                            @click="expanded = ! expanded"
+                        >
+                            {{ expanded ? 'Less' : 'More' }} options
+                            <template #end-icon>
+                                <svg width="11" height="6" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="m5.938 5.73 4.28-4.126a.915.915 0 0 0 0-1.322 1 1 0 0 0-1.371 0L5.253 3.736 1.659.272a1 1 0 0 0-1.371 0A.93.93 0 0 0 0 .932c0 .246.1.48.288.662l4.28 4.125a.99.99 0 0 0 1.37.01z" />
+                                </svg>
+                            </template>
+                        </wallet-button>
+                    </template>
                 </div>
-                <div class="wallet-adapter-modal-overlay" @mousedown="hideModal" />
             </div>
-        </teleport>
-    </div>
+            <div class="wallet-adapter-modal-overlay" @mousedown="hideModal" />
+        </div>
+    </teleport>
 </template>
