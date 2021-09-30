@@ -105,7 +105,7 @@ watchPostEffect(onInvalidate => {
                         ></wallet-list-item>
                     </ul>
                     <template v-if="otherWallets.length > 0">
-                        <ul class="wallet-adapter-modal-list">
+                        <ul class="wallet-adapter-modal-list" v-if="expanded">
                             <wallet-list-item
                                 v-for="wallet in otherWallets"
                                 :key="wallet.name"

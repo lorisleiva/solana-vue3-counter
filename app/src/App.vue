@@ -9,8 +9,22 @@
 </template>
 
 <script>
+import {
+    getPhantomWallet,
+    getBitpieWallet,
+    getBloctoWallet,
+    getCoin98Wallet,
+    getLedgerWallet,
+    getMathWallet,
+    getSlopeWallet,
+    getSolflareWallet,
+    getSolflareWebWallet,
+    getSolletWallet,
+    getSolletExtensionWallet,
+    getSolongWallet,
+    getTorusWallet,
+} from '@solana/wallet-adapter-wallets'
 import { ref } from 'vue'
-import { getPhantomWallet } from '@solana/wallet-adapter-wallets'
 import { initWallet, useWallet } from './vue-adapter'
 import { initWorkspace } from './useWorkspace'
 import createCounter from './api/createCounter'
@@ -19,7 +33,22 @@ import incrementCounter from './api/incrementCounter'
 import WalletMultiButton from './vue-ui/WalletMultiButton'
 import WalletModal from './vue-ui/WalletModal'
 
-const wallets = [getPhantomWallet()]
+const wallets = [
+    getPhantomWallet(),
+    getBitpieWallet(),
+    getBloctoWallet(),
+    getCoin98Wallet(),
+    getLedgerWallet(),
+    getMathWallet(),
+    getMathWallet(),
+    getSlopeWallet(),
+    getSolflareWallet(),
+    getSolflareWebWallet(),
+    getSolletWallet(),
+    getSolletExtensionWallet(),
+    getSolongWallet(),
+    getTorusWallet(),
+]
 
 export default {
     name: 'App',
