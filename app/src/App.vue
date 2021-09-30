@@ -3,6 +3,7 @@
         <pre>{{ wallet }}</pre>
         <wallet-connect-button></wallet-connect-button>
         <wallet-disconnect-button></wallet-disconnect-button>
+        <wallet-multi-button></wallet-multi-button>
 
         <input type="text" v-model="walletName">
         {{ walletName }}
@@ -24,6 +25,7 @@ import fetchAccount from './api/fetchAccount'
 import incrementCounter from './api/incrementCounter'
 import WalletConnectButton from './vue-ui/WalletConnectButton'
 import WalletDisconnectButton from './vue-ui/WalletDisconnectButton'
+import WalletMultiButton from './vue-ui/WalletMultiButton'
 
 const wallets = [getPhantomWallet()]
 
@@ -32,6 +34,7 @@ export default {
     components: {
         WalletConnectButton,
         WalletDisconnectButton,
+        WalletMultiButton,
     },
     setup () {
         initWallet({ wallets, autoConnect: false })
