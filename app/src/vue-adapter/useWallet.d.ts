@@ -3,28 +3,23 @@ import { Connection, PublicKey, Transaction, TransactionSignature } from '@solan
 import { SendTransactionOptions, WalletError } from '@solana/wallet-adapter-base';
 import { Wallet, WalletName } from '@solana/wallet-adapter-wallets';
 declare type Adapter = ReturnType<Wallet['adapter']>;
-declare type WalletDictionary = {
-    [key: string]: Wallet;
-};
 export interface WalletStore {
     wallets: Wallet[];
     autoConnect: boolean;
-    walletName: Ref<string | null>;
-    walletsByName: Ref<WalletDictionary>;
-    wallet: Ref<Wallet | null>;
-    adapter: Ref<Adapter | null>;
-    publicKey: Ref<PublicKey | null>;
-    ready: Ref<boolean>;
-    connected: Ref<boolean>;
+    wallet: Wallet | null;
+    adapter: Adapter | null;
+    publicKey: PublicKey | null;
+    ready: boolean;
+    connected: boolean;
     connecting: Ref<boolean>;
     disconnecting: Ref<boolean>;
     select(walletName: WalletName): void;
     connect(): Promise<void>;
     disconnect(): Promise<void>;
     sendTransaction(transaction: Transaction, connection: Connection, options?: SendTransactionOptions): Promise<TransactionSignature>;
-    signTransaction(transaction: Transaction): Promise<Transaction>;
-    signAllTransactions(transaction: Transaction[]): Promise<Transaction[]>;
-    signMessage(message: Uint8Array): Promise<Uint8Array>;
+    signTransaction: Ref<((transaction: Transaction) => Promise<Transaction>) | undefined>;
+    signAllTransactions: Ref<((transaction: Transaction[]) => Promise<Transaction[]>) | undefined>;
+    signMessage: Ref<((message: Uint8Array) => Promise<Uint8Array>) | undefined>;
 }
 export interface WalletStoreProps {
     wallets: Wallet[];

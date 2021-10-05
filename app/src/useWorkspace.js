@@ -19,10 +19,10 @@ export const initWorkspace = (network = 'http://127.0.0.1:8899', preflightCommit
 
     const providerWallet = {
         sendTransaction,
-        signTransaction,
-        signAllTransactions,
-        signMessage,
-        get publicKey () { return publicKey.value }
+        get signTransaction () { return signTransaction.value },
+        get signAllTransactions () { return signAllTransactions.value },
+        get signMessage () { return signMessage.value },
+        get publicKey () { return publicKey.value },
     }
 
     const baseAccount = web3.Keypair.generate()

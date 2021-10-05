@@ -4,14 +4,24 @@ export function useLocalStorage(key, defaultValue = null) {
         get: () => {
             track();
             const value = localStorage.getItem(key);
-            return value ? JSON.parse(value) : defaultValue;
+            try {
+                return value ? JSON.parse(value) : defaultValue;
+            }
+            catch (error) {
+                return defaultValue;
+            }
         },
         set: value => {
             if (value === null) {
                 localStorage.removeItem(key);
             }
             else {
-                localStorage.setItem(key, JSON.stringify(value));
+                try {
+                    localStorage.setItem(key, JSON.stringify(value));
+                }
+                catch (error) {
+                    // Fail silently...
+                }
             }
             trigger();
         },
