@@ -6,11 +6,11 @@ declare type Adapter = ReturnType<Wallet['adapter']>;
 export interface WalletStore {
     wallets: Wallet[];
     autoConnect: boolean;
-    wallet: Wallet | null;
-    adapter: Adapter | null;
-    publicKey: PublicKey | null;
-    ready: boolean;
-    connected: boolean;
+    wallet: Ref<Wallet | null>;
+    adapter: Ref<Adapter | null>;
+    publicKey: Ref<PublicKey | null>;
+    ready: Ref<boolean>;
+    connected: Ref<boolean>;
     connecting: Ref<boolean>;
     disconnecting: Ref<boolean>;
     select(walletName: WalletName): void;

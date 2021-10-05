@@ -40,7 +40,7 @@ const wallets = [
     getTorusWallet(),
 ]
 
-initWallet({ wallets, autoConnect: false })
+initWallet({ wallets, autoConnect: true })
 initWorkspace()
 const { publicKey, connected } = useWallet()
 const counter = ref(null)
