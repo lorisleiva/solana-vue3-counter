@@ -74,28 +74,29 @@ export const initWallet = ({ wallets, autoConnect = false, onError = (error) => 
     });
     // Handle the adapter events.
     const onReady = () => ready.value = true;
-    // const onDisconnect = () => walletName.value = null;
+    const onDisconnect = () => walletName.value = null;
     const onConnect = () => {
         if (!wallet.value || !adapter.value)
             return;
         setStateFromAdapter(wallet.value, adapter.value);
     };
-    watchEffect(onInvalidate => {
+    const invalidateListeners = watchEffect(onInvalidate => {
         if (!adapter.value)
             return;
         adapter.value.on('ready', onReady);
         adapter.value.on('connect', onConnect);
-        // adapter.value.on('disconnect', onDisconnect);
+        adapter.value.on('disconnect', onDisconnect);
         adapter.value.on('error', onError);
         onInvalidate(() => {
             if (!adapter.value)
                 return;
             adapter.value.off('ready', onReady);
             adapter.value.off('connect', onConnect);
-            // adapter.value.off('disconnect', onDisconnect);
+            adapter.value.off('disconnect', onDisconnect);
             adapter.value.off('error', onError);
         });
     });
+    window.addEventListener('beforeunload', invalidateListeners);
     // Helper method to return an error whilst using the onError callback.
     const newError = (error) => {
         onError(error);
