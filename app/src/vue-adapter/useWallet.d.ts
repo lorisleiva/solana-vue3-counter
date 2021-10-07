@@ -28,5 +28,5 @@ export interface WalletStoreProps {
     localStorageKey?: string;
 }
 export declare const useWallet: () => WalletStore;
-export declare const initWallet: ({ wallets, autoConnect, onError, localStorageKey, }: WalletStoreProps) => void;
+export declare const initWallet: ({ wallets, autoConnect, onError, localStorageKey, }: WalletStoreProps) => (() => void);
 export {};

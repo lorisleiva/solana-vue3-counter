@@ -14,7 +14,7 @@ import {
     getSolongWallet,
     getTorusWallet,
 } from '@solana/wallet-adapter-wallets'
-import { ref } from 'vue'
+import { onBeforeUnmount, ref } from 'vue'
 import { initWallet, useWallet } from './vue-adapter'
 import { initWorkspace } from './useWorkspace'
 import createCounter from './api/createCounter'
@@ -40,7 +40,7 @@ const wallets = [
     getTorusWallet(),
 ]
 
-initWallet({ wallets, autoConnect: true })
+onBeforeUnmount(initWallet({ wallets, autoConnect: true }))
 initWorkspace()
 const { publicKey, connected } = useWallet()
 const counter = ref(null)

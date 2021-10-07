@@ -96,7 +96,6 @@ export const initWallet = ({ wallets, autoConnect = false, onError = (error) => 
             adapter.value.off('error', onError);
         });
     });
-    window.addEventListener('beforeunload', invalidateListeners);
     // Helper method to return an error whilst using the onError callback.
     const newError = (error) => {
         onError(error);
@@ -152,35 +151,35 @@ export const initWallet = ({ wallets, autoConnect = false, onError = (error) => 
     });
     // Sign a transaction if the wallet supports it.
     const signTransaction = computed(() => {
-        if (!(adapter.value && 'signTransaction' in adapter.value))
+        const _adapter = adapter.value;
+        if (!(_adapter && 'signTransaction' in _adapter))
             return undefined;
         return (transaction) => __awaiter(void 0, void 0, void 0, function* () {
             if (!connected.value)
                 throw newError(new WalletNotConnectedError());
-            // @ts-ignore
-            return yield adapter.value.signTransaction(transaction);
+            return yield _adapter.signTransaction(transaction);
         });
     });
     // Sign multiple transactions if the wallet supports it
     const signAllTransactions = computed(() => {
-        if (!(adapter.value && 'signAllTransactions' in adapter.value))
+        const _adapter = adapter.value;
+        if (!(_adapter && 'signAllTransactions' in _adapter))
             return undefined;
         return (transactions) => __awaiter(void 0, void 0, void 0, function* () {
             if (!connected.value)
                 throw newError(new WalletNotConnectedError());
-            // @ts-ignore
-            return yield adapter.value.signAllTransactions(transactions);
+            return yield _adapter.signAllTransactions(transactions);
         });
     });
     // Sign an arbitrary message if the wallet supports it.
     const signMessage = computed(() => {
-        if (!(adapter.value && 'signMessage' in adapter.value))
+        const _adapter = adapter.value;
+        if (!(_adapter && 'signMessage' in _adapter))
             return undefined;
         return (message) => __awaiter(void 0, void 0, void 0, function* () {
             if (!connected.value)
                 throw newError(new WalletNotConnectedError());
-            // @ts-ignore
-            return yield adapter.value.signMessage(message);
+            return yield _adapter.signMessage(message);
         });
     });
     // If autoConnect is enabled, try to connect when the adapter changes and is ready.
@@ -200,6 +199,7 @@ export const initWallet = ({ wallets, autoConnect = false, onError = (error) => 
             connecting.value = false;
         }
     }));
+    // Set up the store.
     walletStore = {
         // Props.
         wallets,
@@ -221,5 +221,12 @@ export const initWallet = ({ wallets, autoConnect = false, onError = (error) => 
         signAllTransactions,
         signMessage,
     };
+    // Provide a method to cleanup any dependencies within the store.
+    const cleanup = () => {
+        invalidateListeners();
+    };
+    // Trigger that method before unloading the page in case users did not register it.
+    window.addEventListener('beforeunload', cleanup);
+    return cleanup;
 };
 //# sourceMappingURL=useWallet.js.map
