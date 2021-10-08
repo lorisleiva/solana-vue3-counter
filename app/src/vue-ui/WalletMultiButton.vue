@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed, watchEffect } from 'vue'
-import { useWallet } from '../vue-adapter';
+import { useWallet } from '@solana/wallet-adapter-vue';
 import { useWalletModal } from './useWalletModal';
 import WalletConnectButton from './WalletConnectButton';
 import WalletModalButton from './WalletModalButton';

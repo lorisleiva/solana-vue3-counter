@@ -1,6 +1,6 @@
 <script setup>
 import { toRefs, computed } from 'vue';
-import { useWallet } from '../vue-adapter';
+import { useWallet } from '@solana/wallet-adapter-vue';
 import WalletButton from './WalletButton';
 import WalletIcon from './WalletIcon';
 
