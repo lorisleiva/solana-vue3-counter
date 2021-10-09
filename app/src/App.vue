@@ -20,7 +20,7 @@ import { initWorkspace } from './useWorkspace'
 import createCounter from './api/createCounter'
 import fetchAccount from './api/fetchAccount'
 import incrementCounter from './api/incrementCounter'
-import { WalletMultiButton, WalletModalProvider } from './vue-ui-package'
+import { WalletMultiButton, WalletModalProvider } from './vue-ui'
 
 const wallets = [
     getPhantomWallet(),

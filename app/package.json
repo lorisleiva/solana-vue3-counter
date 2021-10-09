@@ -40,7 +40,7 @@
     "parserOptions": {
       "parser": "babel-eslint"
     },
-    "ignorePatterns": ["src/vue-ui-package"],
+    "ignorePatterns": ["src/vue-ui"],
     "rules": {},
     "globals": {
       "defineProps": "readonly",
