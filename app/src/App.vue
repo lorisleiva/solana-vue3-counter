@@ -20,8 +20,7 @@ import { initWorkspace } from './useWorkspace'
 import createCounter from './api/createCounter'
 import fetchAccount from './api/fetchAccount'
 import incrementCounter from './api/incrementCounter'
-import WalletMultiButton from './vue-ui/WalletMultiButton'
-import WalletModal from './vue-ui/WalletModal'
+import { WalletMultiButton, WalletModalProvider } from './vue-ui-package'
 
 const wallets = [
     getPhantomWallet(),
@@ -64,7 +63,9 @@ const increment = async () => {
 <template>
     <div>
         <div class="fixed top-0 right-0 p-8">
-            <wallet-multi-button></wallet-multi-button>
+            <wallet-modal-provider>
+                <wallet-multi-button></wallet-multi-button>
+            </wallet-modal-provider>
         </div>
         <div class="flex h-screen">
             <div class="m-auto w-full max-w-sm">
@@ -85,6 +86,5 @@ const increment = async () => {
             </div>
 
         </div>
-        <wallet-modal></wallet-modal>
     </div>
 </template>
