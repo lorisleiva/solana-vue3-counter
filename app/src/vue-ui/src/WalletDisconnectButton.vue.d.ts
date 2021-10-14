@@ -1,8 +1,8 @@
 declare const _default: import("vue").DefineComponent<{
     disabled: BooleanConstructor;
 }, {
-    wallet: import("vue").Ref<import("@solana/wallet-adapter-wallets").Wallet | null>;
-    disconnecting: import("vue").Ref<boolean>;
+    wallet: any;
+    disconnecting: any;
     disabled: boolean;
     content: import("vue").ComputedRef<"Disconnecting ..." | "Disconnect" | "Disconnect Wallet">;
     handleClick: (event: MouseEvent) => void;

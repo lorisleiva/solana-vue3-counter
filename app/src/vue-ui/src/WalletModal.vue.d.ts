@@ -14,8 +14,8 @@ declare const _default: import("vue").DefineComponent<{
     logo: string | undefined;
     visible: any;
     expanded: import("vue").Ref<boolean>;
-    featuredWallets: import("vue").ComputedRef<import("@solana/wallet-adapter-wallets").Wallet[]>;
-    otherWallets: import("vue").ComputedRef<import("@solana/wallet-adapter-wallets").Wallet[]>;
+    featuredWallets: import("vue").ComputedRef<any>;
+    otherWallets: import("vue").ComputedRef<any>;
     modal: import("vue").Ref<Element | undefined>;
     selectWallet: (walletName: WalletName) => void;
     hideModal: any;
