@@ -1,5 +1,5 @@
 import { inject, ref, provide, defineComponent, openBlock, createElementBlock, normalizeStyle, renderSlot, createCommentVNode, computed, resolveComponent, createBlock, createSlots, withCtx, createTextVNode, toDisplayString, createVNode, watchPostEffect, Teleport, createElementVNode, normalizeClass, withModifiers, Fragment, renderList, watchEffect } from "vue";
-import { useWallet } from "@solana/wallet-adapter-vue";
+import { useWallet } from "../vue-adapter";
 const walletModalStoreKey = Symbol();
 const useWalletModal = () => {
   return inject(walletModalStoreKey);
