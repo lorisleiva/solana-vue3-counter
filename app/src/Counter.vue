@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { useWallet } from './vue-adapter'
+import { useWallet } from '@solana/wallet-adapter-vue'
 import { initWorkspace} from './useWorkspace'
 import createCounter from './api/createCounter'
 import fetchAccount from './api/fetchAccount'

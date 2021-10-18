@@ -1,7 +1,7 @@
 import { Connection, PublicKey } from '@solana/web3.js'
 import { Program, Provider, web3 } from '@project-serum/anchor'
+import { useWallet } from '@solana/wallet-adapter-vue'
 import idl from '../../target/idl/learn_anchor_1.json'
-import { useWallet } from './vue-adapter'
 
 const programID = new PublicKey(idl.metadata.address)
 let workspaceStore = {}
