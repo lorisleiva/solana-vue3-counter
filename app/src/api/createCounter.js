@@ -2,13 +2,13 @@ import { web3 } from '@project-serum/anchor'
 import { useWorkspace } from "../useWorkspace"
 
 export default async () => {
-    const { baseAccount, provider, program } = useWorkspace()
+    const { baseAccount, wallet, program } = useWorkspace()
 
     try {
-        await program.rpc.create({
+        await program.value.rpc.create({
             accounts: {
                 baseAccount: baseAccount.publicKey,
-                user: provider.wallet.publicKey,
+                user: wallet.value.publicKey,
                 systemProgram: web3.SystemProgram.programId,
             },
             signers: [baseAccount]

@@ -14,7 +14,7 @@ import {
     getSolongWallet,
     getTorusWallet,
 } from '@solana/wallet-adapter-wallets'
-import { WalletProvider } from '@solana/wallet-adapter-vue'
+import { WalletProvider } from './vue-adapter'
 import { WalletMultiButton, WalletModalProvider } from './vue-ui'
 import Counter from './Counter'
 
