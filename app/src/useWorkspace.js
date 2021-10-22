@@ -1,6 +1,6 @@
 import { Connection, PublicKey } from '@solana/web3.js'
 import { Program, Provider, web3 } from '@project-serum/anchor'
-import { useAnchorWallet } from './vue-adapter'
+import { useAnchorWallet } from '@solana/wallet-adapter-vue'
 import { computed } from 'vue'
 import idl from '../../target/idl/learn_anchor_1.json'
 
