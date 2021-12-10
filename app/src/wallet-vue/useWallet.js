@@ -14,7 +14,7 @@ import { useLocalStorage } from './useLocalStorage';
 const walletStoreKey = Symbol();
 let globalWalletStore = null;
 export const useWallet = () => {
-    const providedWalletStore = inject(walletStoreKey);
+    const providedWalletStore = inject(walletStoreKey, undefined);
     if (providedWalletStore)
         return providedWalletStore;
     if (globalWalletStore)
