@@ -41,6 +41,9 @@
     "parserOptions": {
       "parser": "babel-eslint"
     },
+    "ignorePatterns": [
+      "src/wallet-vue-ui"
+    ],
     "rules": {},
     "globals": {
       "defineProps": "readonly",
