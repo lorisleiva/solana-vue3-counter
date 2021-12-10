@@ -1,12 +1,10 @@
 <script setup>
 import { ref } from 'vue'
 import { useWallet } from '@/wallet-vue'
-import { initWorkspace } from './useWorkspace'
 import createCounter from './api/createCounter'
 import fetchAccount from './api/fetchAccount'
 import incrementCounter from './api/incrementCounter'
 
-initWorkspace()
 const { publicKey, connected } = useWallet()
 const counter = ref(null)
 

@@ -14,7 +14,8 @@ import {
     getSolongWallet,
     getTorusWallet,
 } from '@solana/wallet-adapter-wallets'
-import { WalletProvider } from '@/wallet-vue'
+import { initWallet } from '@/wallet-vue'
+import { initWorkspace } from './useWorkspace'
 import { WalletMultiButton, WalletModalProvider } from '@/wallet-vue-ui'
 import Counter from './Counter'
 
@@ -34,17 +35,18 @@ const wallets = [
     getSolongWallet(),
     getTorusWallet(),
 ]
+
+initWallet({ wallets, autoConnect: true })
+initWorkspace()
 </script>
 
 <template>
-    <wallet-provider :wallets="wallets" auto-connect>
-        <div>
-            <div class="fixed top-0 right-0 p-8">
-                <wallet-modal-provider>
-                    <wallet-multi-button></wallet-multi-button>
-                </wallet-modal-provider>
-            </div>
-            <counter></counter>
+    <div>
+        <div class="fixed top-0 right-0 p-8">
+            <wallet-modal-provider>
+                <wallet-multi-button></wallet-multi-button>
+            </wallet-modal-provider>
         </div>
-    </wallet-provider>
+        <counter></counter>
+    </div>
 </template>
