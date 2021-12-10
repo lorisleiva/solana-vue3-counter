@@ -6,7 +6,7 @@ url = "https://anchor.projectserum.com"
 
 [provider]
 cluster = "localnet"
-wallet = "/Users/lorisleiva/.config/solana/id.json"
+wallet = "~/.config/solana/id.json"
 
 [scripts]
 test = "npx mocha -t 1000000 tests/"
