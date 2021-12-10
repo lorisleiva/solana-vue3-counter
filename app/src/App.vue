@@ -15,7 +15,7 @@ import {
     getTorusWallet,
 } from '@solana/wallet-adapter-wallets'
 import { WalletProvider } from '@solana/wallet-adapter-vue'
-import { WalletMultiButton, WalletModalProvider } from './vue-ui'
+import { WalletMultiButton, WalletModalProvider } from '@solana/wallet-adapter-vue-ui'
 import Counter from './Counter'
 
 const wallets = [

@@ -11,6 +11,7 @@
     "@project-serum/anchor": "^0.16.1",
     "@solana/wallet-adapter-base": "^0.7.0",
     "@solana/wallet-adapter-vue": "^0.3.0",
+    "@solana/wallet-adapter-vue-ui": "^0.1.1",
     "@solana/wallet-adapter-wallets": "^0.11.0",
     "@solana/web3.js": "^1.29.0",
     "autoprefixer": "^9.8.7",
@@ -40,7 +41,6 @@
     "parserOptions": {
       "parser": "babel-eslint"
     },
-    "ignorePatterns": ["src/vue-ui"],
     "rules": {},
     "globals": {
       "defineProps": "readonly",
