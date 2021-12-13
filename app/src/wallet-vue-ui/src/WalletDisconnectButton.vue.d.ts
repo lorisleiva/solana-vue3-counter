@@ -1,7 +1,7 @@
 declare const _default: import("vue").DefineComponent<{
     disabled: BooleanConstructor;
 }, {
-    wallet: import("vue").Ref<import("@solana/wallet-adapter-wallets").Wallet | null>;
+    wallet: import("vue").Ref<import("@solana/wallet-adapter-base").Wallet | null>;
     disconnecting: import("vue").Ref<boolean>;
     disabled: boolean;
     content: import("vue").ComputedRef<"Disconnecting ..." | "Disconnect" | "Disconnect Wallet">;

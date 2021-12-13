@@ -12,22 +12,13 @@ import { computed, inject, provide, ref, watch, watchEffect } from '@vue/runtime
 import { WalletNotSelectedError } from './errors';
 import { useLocalStorage } from './useLocalStorage';
 const walletStoreKey = Symbol();
-let globalWalletStore = null;
 export const useWallet = () => {
-    const providedWalletStore = inject(walletStoreKey, undefined);
-    if (providedWalletStore)
-        return providedWalletStore;
-    if (globalWalletStore)
-        return globalWalletStore;
-    throw new Error('Wallet not initialized. Please use the `WalletProvider` component to initialize the wallet.');
+    const walletStore = inject(walletStoreKey);
+    if (!walletStore)
+        throw new Error('Wallet not initialized. Please use the `WalletProvider` component to initialize the wallet.');
+    return walletStore;
 };
-export const provideWallet = (walletStoreProps) => {
-    provide(walletStoreKey, createWalletStore(walletStoreProps));
-};
-export const initWallet = (walletStoreProps) => {
-    globalWalletStore = createWalletStore(walletStoreProps);
-};
-export const createWalletStore = ({ wallets, autoConnect = false, onError = (error) => console.error(error), localStorageKey = 'walletName', }) => {
+export const initWallet = ({ wallets, autoConnect = false, onError = (error) => console.error(error), localStorageKey = 'walletName', }) => {
     const name = useLocalStorage(localStorageKey);
     const wallet = ref(null);
     const adapter = ref(null);
@@ -48,7 +39,7 @@ export const createWalletStore = ({ wallets, autoConnect = false, onError = (err
         setState({
             wallet,
             adapter,
-            ready: adapter.ready,
+            ready: false,
             publicKey: adapter.publicKey,
             connected: adapter.connected,
         });
@@ -71,23 +62,26 @@ export const createWalletStore = ({ wallets, autoConnect = false, onError = (err
     });
     // Update the wallet and adapter based on the wallet provider.
     watch(name, () => {
-        var _a, _b, _c;
+        var _a, _b;
         const wallet = (_b = (_a = walletsByName.value) === null || _a === void 0 ? void 0 : _a[name.value]) !== null && _b !== void 0 ? _b : null;
-        const adapter = (_c = wallet === null || wallet === void 0 ? void 0 : wallet.adapter()) !== null && _c !== void 0 ? _c : null;
-        if (!adapter)
-            return resetState();
-        setStateFromAdapter(wallet, adapter);
+        const adapter = wallet && wallet.adapter;
+        if (adapter) {
+            setStateFromAdapter(wallet, adapter);
+            // FIXME: Asynchronously update the ready state
+        }
+        else {
+            resetState();
+        }
     }, { immediate: true });
     // Select a wallet by name.
-    const select = (newName) => __awaiter(void 0, void 0, void 0, function* () {
-        if (name.value === newName)
+    const select = (walletName) => __awaiter(void 0, void 0, void 0, function* () {
+        if (name.value === walletName)
             return;
         if (adapter.value)
             yield adapter.value.disconnect();
-        name.value = newName;
+        name.value = walletName;
     });
     // Handle the adapter events.
-    const onReady = () => (ready.value = true);
     const onDisconnect = () => (name.value = null);
     const onConnect = () => {
         if (!wallet.value || !adapter.value)
@@ -98,12 +92,10 @@ export const createWalletStore = ({ wallets, autoConnect = false, onError = (err
         const _adapter = adapter.value;
         if (!_adapter)
             return;
-        _adapter.on('ready', onReady);
         _adapter.on('connect', onConnect);
         _adapter.on('disconnect', onDisconnect);
         _adapter.on('error', onError);
         onInvalidate(() => {
-            _adapter.off('ready', onReady);
             _adapter.off('connect', onConnect);
             _adapter.off('disconnect', onDisconnect);
             _adapter.off('error', onError);
@@ -217,8 +209,8 @@ export const createWalletStore = ({ wallets, autoConnect = false, onError = (err
             connecting.value = false;
         }
     }));
-    // Return the created store.
-    return {
+    // Set up the store.
+    provide(walletStoreKey, {
         // Props.
         wallets,
         autoConnect,
@@ -238,6 +230,6 @@ export const createWalletStore = ({ wallets, autoConnect = false, onError = (err
         signTransaction,
         signAllTransactions,
         signMessage,
-    };
+    });
 };
 //# sourceMappingURL=useWallet.js.map

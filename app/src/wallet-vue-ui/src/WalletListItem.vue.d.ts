@@ -1,4 +1,4 @@
-import { Wallet } from "@solana/wallet-adapter-wallets";
+import { Wallet } from "@solana/wallet-adapter-base";
 import { PropType } from "vue";
 declare const _default: import("vue").DefineComponent<{
     wallet: PropType<Wallet>;

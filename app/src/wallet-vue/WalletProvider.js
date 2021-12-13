@@ -1,5 +1,5 @@
 import { defineComponent } from '@vue/runtime-core';
-import { provideWallet } from './useWallet';
+import { initWallet } from './useWallet';
 export const WalletProvider = defineComponent({
     name: 'wallet-provider',
     props: {
@@ -21,7 +21,7 @@ export const WalletProvider = defineComponent({
         },
     },
     setup(props, { slots }) {
-        provideWallet({
+        initWallet({
             wallets: props.wallets,
             autoConnect: props.autoConnect,
             onError: props.onError,

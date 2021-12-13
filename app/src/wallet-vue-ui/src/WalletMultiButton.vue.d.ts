@@ -1,5 +1,5 @@
 declare const _default: import("vue").DefineComponent<{}, {
-    wallet: import("vue").Ref<import("@solana/wallet-adapter-wallets").Wallet | null>;
+    wallet: import("vue").Ref<import("@solana/wallet-adapter-base").Wallet | null>;
     content: import("vue").ComputedRef<string | null>;
     base58: import("vue").ComputedRef<string | undefined>;
     active: import("vue").Ref<boolean>;

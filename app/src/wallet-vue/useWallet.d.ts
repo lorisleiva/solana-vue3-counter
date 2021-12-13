@@ -1,8 +1,7 @@
-import { MessageSignerWalletAdapter, SendTransactionOptions, SignerWalletAdapter, WalletError } from '@solana/wallet-adapter-base';
-import { Wallet, WalletName } from '@solana/wallet-adapter-wallets';
+import { Adapter, MessageSignerWalletAdapter, SendTransactionOptions, SignerWalletAdapter, WalletError } from '@solana/wallet-adapter-base';
+import { Wallet, WalletName } from '@solana/wallet-adapter-base';
 import { Connection, PublicKey, Transaction, TransactionSignature } from '@solana/web3.js';
 import { Ref } from '@vue/runtime-core';
-declare type Adapter = ReturnType<Wallet['adapter']>;
 export interface WalletStore {
     wallets: Wallet[];
     autoConnect: boolean;
@@ -28,7 +27,4 @@ export interface WalletStoreProps {
     localStorageKey?: string;
 }
 export declare const useWallet: () => WalletStore;
-export declare const provideWallet: (walletStoreProps: WalletStoreProps) => void;
-export declare const initWallet: (walletStoreProps: WalletStoreProps) => void;
-export declare const createWalletStore: ({ wallets, autoConnect, onError, localStorageKey, }: WalletStoreProps) => WalletStore;
-export {};
+export declare const initWallet: ({ wallets, autoConnect, onError, localStorageKey, }: WalletStoreProps) => void;
