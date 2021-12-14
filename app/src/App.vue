@@ -1,38 +1,13 @@
 <script setup>
 import {
     getPhantomWallet,
-    getBitpieWallet,
-    getBloctoWallet,
-    getCoin98Wallet,
-    getLedgerWallet,
-    getMathWallet,
-    getSlopeWallet,
-    getSolflareWallet,
-    getSolflareWebWallet,
-    getSolletWallet,
-    getSolletExtensionWallet,
-    getSolongWallet,
-    getTorusWallet,
-} from '@solana/wallet-adapter-wallets'
-import { WalletProvider } from '@solana/wallet-adapter-vue'
-import { WalletMultiButton, WalletModalProvider } from '@solana/wallet-adapter-vue-ui'
+} from '@/wallet-wallets'
+import { WalletProvider } from '@/wallet-vue'
+import { WalletMultiButton, WalletModalProvider } from '@/wallet-vue-ui'
 import Counter from './Counter'
 
 const wallets = [
     getPhantomWallet(),
-    getBitpieWallet(),
-    getBloctoWallet(),
-    getCoin98Wallet(),
-    getLedgerWallet(),
-    getMathWallet(),
-    getMathWallet(),
-    getSlopeWallet(),
-    getSolflareWallet(),
-    getSolflareWebWallet(),
-    getSolletWallet(),
-    getSolletExtensionWallet(),
-    getSolongWallet(),
-    getTorusWallet(),
 ]
 </script>
 
