@@ -9,14 +9,12 @@
   },
   "dependencies": {
     "@project-serum/anchor": "^0.16.1",
-    "@solana/wallet-adapter-base": "^0.7.0",
-    "@solana/wallet-adapter-vue": "^0.3.0",
-    "@solana/wallet-adapter-vue-ui": "^0.1.1",
-    "@solana/wallet-adapter-wallets": "^0.11.0",
+    "@solana/wallet-adapter-wallets": "^0.15.2",
     "@solana/web3.js": "^1.29.0",
     "autoprefixer": "^9.8.7",
     "core-js": "^3.6.5",
     "postcss": "^7.0.38",
+    "solana-wallets-vue": "^0.1.2",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.16",
     "vue": "^3.0.0"
   },
