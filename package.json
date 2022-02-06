@@ -1,6 +1,7 @@
 {
     "dependencies": {
-        "@project-serum/anchor": "^0.16.0"
+        "@project-serum/anchor": "^0.16.0",
+        "solana-wallets-vue": "^0.1.0"
     },
     "devDependencies": {
         "chai": "^4.3.4",
