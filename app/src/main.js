@@ -5,38 +5,26 @@ import 'solana-wallets-vue/styles.css'
 import SolanaWallets from 'solana-wallets-vue'
 
 import {
-    getPhantomWallet,
-    getBitpieWallet,
-    getBloctoWallet,
-    getCoin98Wallet,
-    getLedgerWallet,
-    getMathWallet,
-    getSlopeWallet,
-    getSolflareWallet,
-    getSolflareWebWallet,
-    getSolletWallet,
-    getSolletExtensionWallet,
-    getSolongWallet,
-    getTorusWallet,
-} from '@solana/wallet-adapter-wallets'
+    PhantomWalletAdapter,
+    SlopeWalletAdapter,
+    SolflareWalletAdapter,
+    SolletExtensionWalletAdapter,
+    SolletWalletAdapter,
+    TorusWalletAdapter,
+} from '@solana/wallet-adapter-wallets';
 
-const wallets = [
-    getPhantomWallet(),
-    getBitpieWallet(),
-    getBloctoWallet(),
-    getCoin98Wallet(),
-    getLedgerWallet(),
-    getMathWallet(),
-    getMathWallet(),
-    getSlopeWallet(),
-    getSolflareWallet(),
-    getSolflareWebWallet(),
-    getSolletWallet(),
-    getSolletExtensionWallet(),
-    getSolongWallet(),
-    getTorusWallet(),
-]
+const walletOptions = {
+    wallets: [
+      new PhantomWalletAdapter(),
+      new SlopeWalletAdapter(),
+      new SolflareWalletAdapter({ network: 'devnet' }),
+      new TorusWalletAdapter(),
+      new SolletWalletAdapter({ network: 'devnet' }),
+      new SolletExtensionWalletAdapter({ network: 'devnet' }),
+    ],
+    autoConnect: true,
+}
 
 createApp(App)
-    .use(SolanaWallets, { wallets, autoConnect: true })
+    .use(SolanaWallets, walletOptions)
     .mount('#app')
